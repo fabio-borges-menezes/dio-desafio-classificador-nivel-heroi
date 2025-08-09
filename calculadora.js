@@ -1,10 +1,25 @@
 //SEGUNDO DESAFIO - CALCULADORA DE NÍVEL DE HERÓI
-//Solicita vitórias e derrotas do usuário e exibe na tela
+// Importa o módulo prompt-sync para ler entradas do usuário
 const prompt = require('prompt-sync')();
+//Solicita vitórias e derrotas do usuário
 let xpVictories = prompt('Vitórias do herói: ');
 let xpDefeats = prompt('Derrotas do herói: ');
 let classe;
-let balanceXP = xpVictories - xpDefeats;
+let balanceXP;
+//função para validar se as entradas são números
+function isNumber(value) {
+    return !isNaN(value) && value.trim() !== '';
+}
+// Verifica se as entradas são números válidos
+while (!isNumber(xpVictories) || !isNumber(xpDefeats)) {
+  console.log("⚠️ Erro: Vitórias e derrotas devem ser números válidos.");
+    xpVictories = prompt('Vitórias do herói: ');
+    xpDefeats = prompt('Derrotas do herói: ');
+}
+xpVictories = parseInt(xpVictories, 10); // Converte a entrada para um número inteiro
+xpDefeats = parseInt(xpDefeats, 10); // Converte a entrada para um número inteiro
+// Calcula o saldo de vitórias e derrotas
+balanceXP = xpVictories - xpDefeats;
 // Classifica o herói com base no saldo de vitórias e derrotas
 function classificarXP(balanceXP) {
   if (balanceXP < 10) return "Ferro";
@@ -14,16 +29,6 @@ function classificarXP(balanceXP) {
   if (balanceXP <= 90) return "Diamante";
   if (balanceXP <= 100) return "Lendário";
   return "Imortal";
-}//*******REFAZER DAQUI P BAIXO********
-while (isNaN(balanceXP) || balanceXP < 0) {
-  console.log("⚠️ Erro: XP deve ser um número positivo.");
-  balanceXP = prompt('XP do herói: ');
-} 
-balanceXP = parseInt(balanceXP, 10); // Converte a entrada para um número inteiro
-// Classifica o herói com base na experiência (XP)
-while (nameHero.trim() === '') {
-  console.log("⚠️ Erro: O nome do herói não pode estar vazio.");
-  nameHero = prompt('Nome do herói: ');
 }
 classe = classificarXP(balanceXP);
-console.log(`Herói de nome:  **${nameHero}** alcançou o nível **${classe}**.`);
+console.log(`O Herói tem de saldo de:  **${balanceXP}** está no nível de **${classe}**.`);
